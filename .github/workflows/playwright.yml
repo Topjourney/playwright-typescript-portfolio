@@ -55,10 +55,15 @@ jobs:
         run: npx playwright install --with-deps ${{ matrix.browser }}
       - name: Run ${{ matrix.browser }} tests
         run: npx playwright test --project=${{ matrix.browser }}
-      - name: Upload Playwright report
+      - name: Generate business release summary
+        if: ${{ !cancelled() }}
+        run: npm run summary -- ${{ matrix.browser }}
+      - name: Upload test evidence
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report-${{ matrix.browser }}
-          path: playwright-report/
+          name: test-evidence-${{ matrix.browser }}
+          path: |
+            playwright-report/
+            test-results/business-summary.md
           retention-days: 14

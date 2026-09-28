@@ -1,7 +1,7 @@
 {
   "name": "playwright-typescript-portfolio",
   "version": "1.0.0",
-  "description": "Portfolio-quality end-to-end web test automation suite built with TypeScript, Playwright and GitHub Actions.",
+  "description": "A business-led quality engineering solution built with TypeScript, Playwright and GitHub Actions.",
   "private": true,
   "type": "module",
   "engines": {
@@ -14,6 +14,7 @@
     "test:headed": "playwright test --headed --project=chromium",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug --project=chromium",
+    "summary": "node scripts/generate-test-summary.mjs",
     "report": "playwright show-report",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

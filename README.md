@@ -1,48 +1,87 @@
-# Playwright TypeScript E2E Portfolio
+# Trail & Tide Outfitters — Quality Engineering Solution
 
-A production-minded browser automation project demonstrating **TypeScript**, **Playwright**, **cross-browser testing** and **GitHub Actions CI** against the public [SauceDemo](https://www.saucedemo.com/) e-commerce test application.
+[![Playwright tests](https://github.com/Topjourney/playwright-typescript-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/Topjourney/playwright-typescript-portfolio/actions/workflows/playwright.yml)
 
-This is intentionally more than a tutorial: the repository uses typed test data, reusable page objects, custom fixtures, positive and negative scenarios, stable test-case IDs, failure diagnostics and a documented risk-based test strategy.
+A self-directed, business-led quality engineering project by **Yuhan Deng**, built with TypeScript, Playwright and GitHub Actions against the public [SauceDemo](https://www.saucedemo.com/) e-commerce test application.
 
-## What this demonstrates
+## Business challenge
 
-- 12 automated scenarios across authentication, catalogue, cart, checkout and logout
-- TypeScript strict mode and compile-time checks
+**Trail & Tide Outfitters** is a fictional outdoor retailer moving from monthly storefront releases to several releases each week. Login, cart or checkout defects can prevent customers from purchasing, while repeated manual regression across browsers slows delivery and produces inconsistent evidence.
+
+I designed and implemented a practical solution: an automated release gate protecting the customer journey from access through purchase confirmation.
+
+> **Project integrity:** Trail & Tide is a fictional case study and SauceDemo is the public sandbox. This is an independently executed personal project, not commercial client work.
+
+## Solution and measurable outcomes
+
+| Business need                     | Implemented solution                                     | Evidence                               |
+| --------------------------------- | -------------------------------------------------------- | -------------------------------------- |
+| Protect revenue-critical journeys | P0 smoke coverage for login, cart and completed checkout | 3 critical scenarios                   |
+| Broaden release confidence        | Positive and negative regression coverage                | 12 traceable scenarios                 |
+| Reduce browser risk               | Parallel Chromium, Firefox and WebKit validation         | 36 browser executions                  |
+| Make release decisions explicit   | Generated READY / NOT READY summary                      | Zero-failure, zero-flaky gate          |
+| Speed up triage                   | HTML report, trace, screenshot and video                 | CI artifacts retained for 14 days      |
+| Connect testing to business risk  | BR and QA identifiers with priority                      | Requirements traceability matrix       |
+| Support team delivery             | Pull-request and defect templates                        | Consistent evidence and risk decisions |
+
+The complete local validation baseline is **36/36 passing browser tests**. The illustrative business model estimates that automating a 45-minute manual pack across three browsers, three times per week, could return approximately six hours each week for exploratory and higher-value testing. The assumptions are documented rather than presented as measured client savings.
+
+Read the full [business case and delivery plan](docs/business-case.md).
+
+## Quality-engineering design
+
+```text
+Business requirements (BR IDs)
+            ↓
+Risk-based test cases (QA IDs + smoke/regression tags)
+            ↓
+Typed fixtures and page objects
+            ↓
+Chromium / Firefox / WebKit in GitHub Actions
+            ↓
+Release decision + diagnostic evidence
+```
+
+The repository demonstrates:
+
+- Strict TypeScript and compile-time checks
 - Page Object Model with dependency-injected Playwright fixtures
-- Stable `data-test` and accessible role locators
-- `@smoke` and `@regression` execution tags
-- Chromium, Firefox and WebKit coverage
-- GitHub Actions quality gate and parallel browser matrix
-- HTML reports, traces, screenshots and video for failure diagnosis
-- Test-case traceability and a practical defect-report template
+- Stable `data-test` and accessible-role locators
+- Isolated browser context for every scenario
+- Positive and negative customer journeys
+- `@smoke` and `@regression` execution packs
+- GitHub Actions quality gate and browser matrix
+- Automated release-readiness summaries
+- HTML reports, traces, screenshots and video
+- Business-to-test traceability and test-management readiness
 
-## Test architecture
+## Repository structure
 
 ```text
 tests/        Business-readable scenarios and assertions
 fixtures/     Isolated page-object setup and authenticated state
 pages/        Reusable UI interactions and page-level assertions
 test-data/    Typed users, customers and products
-docs/         Test strategy, traceability and defect template
+scripts/      CI release-summary generation
+docs/         Business case, strategy, traceability and interview guide
+.github/      CI workflow, defect form and pull-request controls
 ```
-
-Each test runs in a fresh browser context. The authenticated fixture performs setup through the UI, while page objects keep selectors and repeatable actions out of the scenario files.
 
 ## Coverage
 
-| Area           | Positive coverage                               | Negative coverage                           |
-| -------------- | ----------------------------------------------- | ------------------------------------------- |
-| Authentication | Standard-user login                             | Invalid, missing and locked-out credentials |
-| Catalogue      | Price sorting, product information, add to cart | —                                           |
-| Cart           | Product present, state persistence, removal     | —                                           |
-| Checkout       | Completed purchase                              | Required customer information               |
-| Navigation     | Logout                                          | —                                           |
+| Business area     | Positive coverage                              | Negative coverage                           |
+| ----------------- | ---------------------------------------------- | ------------------------------------------- |
+| Customer access   | Standard-user login                            | Invalid, missing and locked-out credentials |
+| Product discovery | Price sorting and product information          | —                                           |
+| Cart integrity    | Product present, state persistence and removal | —                                           |
+| Purchase          | Completed checkout                             | Required customer information               |
+| Session control   | Logout                                         | —                                           |
 
-See [test case traceability](docs/test-cases.md) and the full [test strategy](docs/test-strategy.md).
+Every automated scenario maps to a business requirement in the [requirements traceability matrix](docs/requirements-traceability.md) and to a detailed [test case](docs/test-cases.md).
 
 ## Quick start
 
-Prerequisites: Node.js 24 or newer.
+Prerequisite: Node.js 24 or newer.
 
 ```bash
 npm ci
@@ -50,7 +89,7 @@ npx playwright install
 npm test
 ```
 
-Run the fast smoke pack in Chromium:
+Run the fast critical-path pack in Chromium:
 
 ```bash
 npm run test:smoke -- --project=chromium
@@ -58,61 +97,57 @@ npm run test:smoke -- --project=chromium
 
 Useful commands:
 
-| Command                   | Purpose                                  |
-| ------------------------- | ---------------------------------------- |
-| `npm test`                | Run all tests in all configured browsers |
-| `npm run test:smoke`      | Run critical-path scenarios              |
-| `npm run test:regression` | Run broader regression scenarios         |
-| `npm run test:headed`     | Watch tests in desktop Chromium          |
-| `npm run test:ui`         | Open Playwright's interactive UI mode    |
-| `npm run test:debug`      | Step through tests with the Inspector    |
-| `npm run check`           | Type-check, lint and verify formatting   |
-| `npm run report`          | Serve the most recent HTML report        |
+| Command                       | Purpose                                                     |
+| ----------------------------- | ----------------------------------------------------------- |
+| `npm test`                    | Run all tests in all configured browsers                    |
+| `npm run test:smoke`          | Run the revenue-critical release pack                       |
+| `npm run test:regression`     | Run broader positive and negative coverage                  |
+| `npm run test:headed`         | Watch tests in desktop Chromium                             |
+| `npm run test:ui`             | Explore tests in Playwright UI mode                         |
+| `npm run test:debug`          | Step through tests with the Inspector                       |
+| `npm run check`               | Type-check, lint and verify formatting                      |
+| `npm run summary -- chromium` | Generate a release-readiness summary from the latest result |
+| `npm run report`              | Serve the most recent HTML report                           |
 
-The target can be changed without editing source code:
+The target environment can be changed without editing source code:
 
 ```bash
 BASE_URL=https://your-test-environment.example npm test
 ```
 
-## Continuous integration
+## Continuous delivery controls
 
-The workflow runs on every push and pull request to `main`:
+Every push and pull request to `main`:
 
 1. Type-checks, lints and verifies formatting.
-2. Runs the complete suite in separate Chromium, Firefox and WebKit jobs.
-3. Uploads a browser-specific HTML report for 14 days, even when a test fails.
+2. Runs the full suite in separate Chromium, Firefox and WebKit jobs.
+3. Generates an explicit business release decision for each browser.
+4. Uploads the HTML report and Markdown release summary for 14 days.
 
-Playwright captures a trace on the first retry and retains screenshots and video on failure. This makes CI failures reproducible rather than leaving only a red status.
+A run is **READY** only when at least one test executed, with zero unexpected failures and zero flaky scenarios. A P0 failure blocks release under the documented [release policy](docs/business-case.md#release-policy).
 
-## Test management and teamwork
+## Delivery documentation
 
-Scenario titles carry stable IDs such as `QA-CHK-002`, ready to map to Jira/Xray, Zephyr or TestRail. The repository also includes:
-
+- [Business case, stakeholders, value model and rollout](docs/business-case.md)
+- [Business requirements traceability](docs/requirements-traceability.md)
 - [Risk-based test strategy](docs/test-strategy.md)
-- [Test case traceability matrix](docs/test-cases.md)
-- [Defect report template](docs/defect-template.md)
+- [Detailed test cases](docs/test-cases.md)
+- [Defect communication template](docs/defect-template.md)
 - [Role-focused interview guide](docs/interview-guide.md)
 - [Contribution and review workflow](CONTRIBUTING.md)
 
-## Intentional limitations
+GitHub also provides a structured defect form and pull-request template so impact, coverage and release risk are discussed consistently.
 
-This is a focused portfolio suite against a third-party public demo. A real product strategy would add lower-level API/component tests, owned test data, environment health checks and appropriate non-functional coverage. Public demo credentials are used here; real credentials belong in encrypted CI secrets and must never be committed.
+## Intentional limitations and roadmap
 
-## Interview discussion points
-
-- Why critical customer journeys are tagged separately from the regression pack
-- How isolated contexts and web-first assertions reduce flaky tests
-- Why a UI-heavy suite should be balanced with faster API and unit coverage
-- How traces and artifacts support defect triage
-- How the test-case IDs connect automation to test management
-- Which risks would change first when moving from a demo site to a production team
+This portfolio focuses on browser-level validation against a third-party sandbox. A production implementation would add faster API/component coverage, controlled test accounts and data cleanup, environment health checks, accessibility validation and selective performance/security testing based on risk. Public demo credentials are used here; real credentials belong in encrypted CI secrets and must never be committed.
 
 ## CV-ready description
 
-**Web Test Automation Project — TypeScript, Playwright & GitHub Actions**  
-Built a cross-browser end-to-end automation suite in TypeScript using Playwright, covering critical e-commerce journeys and negative test cases; implemented reusable page objects, traceable test cases, failure diagnostics and automated execution through GitHub Actions CI.
+**Quality Engineering Project — TypeScript, Playwright & GitHub Actions**
+
+Designed and delivered a risk-based, cross-browser quality gate for a fictional e-commerce business, automating 12 critical and negative customer scenarios in TypeScript/Playwright; connected requirements to test evidence, implemented reusable fixtures and page objects, and generated release-readiness reporting through GitHub Actions CI.
 
 ## Disclaimer
 
-SauceDemo and Sauce Labs are used only as a public testing target. This project is not affiliated with or endorsed by Sauce Labs.
+Trail & Tide Outfitters is fictional. SauceDemo and Sauce Labs are used only as a public testing target; this project is not affiliated with or endorsed by Sauce Labs.

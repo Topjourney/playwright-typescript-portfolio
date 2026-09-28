@@ -28,4 +28,11 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
+  {
+    files: ['**/*.mjs'],
+    extends: [tseslint.configs.disableTypeChecked],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 );

@@ -4,7 +4,7 @@ Use this as a speaking guide, not a script to memorise. Be ready to open the rel
 
 ## 90-second project summary
 
-> I built a TypeScript and Playwright end-to-end suite against SauceDemo, a public e-commerce test application. I chose 12 risk-based scenarios covering authentication, catalogue behaviour, cart management, checkout and logout, including positive and negative paths. I separated scenarios, typed test data, page objects and custom fixtures so the suite is readable and maintainable. Every push and pull request runs a static quality gate and the full suite across Chromium, Firefox and WebKit in GitHub Actions. Failures retain an HTML report, trace, screenshot and video to support triage. I also gave every scenario a stable test-case ID so it can map into a test management tool.
+> I created a fictional outdoor retail business case, Trail & Tide Outfitters, and designed a quality-engineering solution for its move to frequent storefront releases. Using SauceDemo as the public sandbox, I automated 12 risk-based scenarios covering customer access, product discovery, cart integrity, checkout and session control. I connected business requirements to stable test IDs, separated typed data, fixtures and page objects, and added a GitHub Actions release gate across Chromium, Firefox and WebKit. Each job produces a READY or NOT READY decision plus diagnostic artifacts, turning the suite into practical release evidence rather than just a collection of tests.
 
 ## Role requirement mapping
 
@@ -16,14 +16,15 @@ Use this as a speaking guide, not a script to memorise. Be ready to open the rel
 | Written communication            | README, risk-based strategy, traceability matrix and defect template                     |
 | Team collaboration               | Contribution workflow, pull-request quality gate and reusable conventions                |
 | Test management tools            | Stable IDs designed to map to Jira/Xray, Zephyr or TestRail                              |
+| Business and service thinking    | Stakeholders, requirements, value assumptions, release policy and phased roadmap         |
 
 ## Three-minute live demo
 
-1. Open `README.md` and explain the business coverage table.
+1. Open `docs/business-case.md` and explain the problem, stakeholders and release policy.
 2. Open `tests/checkout.spec.ts` to show readable steps and positive/negative coverage.
 3. Open `fixtures/test.ts` and one page object to explain reuse and isolated setup.
-4. Open `.github/workflows/playwright.yml` to show the quality gate, browser matrix and artifacts.
-5. Open `docs/test-cases.md` to show test management traceability.
+4. Open `.github/workflows/playwright.yml` to show the quality gate, browser matrix and generated release summary.
+5. Open `docs/requirements-traceability.md` to connect commercial risk to executable evidence.
 6. Run:
 
    ```bash

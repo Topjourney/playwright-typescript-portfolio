@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This suite provides fast feedback on SauceDemo's highest-value customer journeys: authentication, product discovery, cart management, checkout and session navigation. It is a portfolio project against a public demonstration system, not a claim of commercial ownership or production coverage.
+This suite is the executable quality gate proposed for the fictional Trail & Tide Outfitters business case. It provides fast feedback on the highest-value storefront journeys: authentication, product discovery, cart management, checkout and session navigation. SauceDemo is the public sandbox; this personal project is not a claim of commercial ownership or production coverage.
 
 ## Scope and priorities
 
