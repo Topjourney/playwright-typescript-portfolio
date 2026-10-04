@@ -1,10 +1,10 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
 export class InventoryPage {
-  readonly title: Locator;
-  readonly sortSelect: Locator;
-  readonly cartLink: Locator;
-  readonly cartBadge: Locator;
+  private readonly title: Locator;
+  private readonly sortSelect: Locator;
+  private readonly cartLink: Locator;
+  private readonly cartBadge: Locator;
 
   constructor(private readonly page: Page) {
     this.title = page.getByTestId('title');
@@ -14,7 +14,7 @@ export class InventoryPage {
   }
 
   private item(productName: string): Locator {
-    return this.page.locator('[data-test="inventory-item"]').filter({ hasText: productName });
+    return this.page.getByTestId('inventory-item').filter({ hasText: productName });
   }
 
   async expectLoaded(): Promise<void> {
@@ -35,6 +35,10 @@ export class InventoryPage {
 
   async openCart(): Promise<void> {
     await this.cartLink.click();
+  }
+
+  async expectCartCount(count: number): Promise<void> {
+    await expect(this.cartBadge).toHaveText(String(count));
   }
 
   async sortBy(option: 'lohi' | 'hilo' | 'az' | 'za'): Promise<void> {

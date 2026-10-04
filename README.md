@@ -1,16 +1,29 @@
-# Trail & Tide Outfitters — Quality Engineering Solution
+# Playwright + TypeScript E2E Test Automation Framework
 
 [![Playwright tests](https://github.com/Topjourney/playwright-typescript-portfolio/actions/workflows/playwright.yml/badge.svg)](https://github.com/Topjourney/playwright-typescript-portfolio/actions/workflows/playwright.yml)
+![Playwright](https://img.shields.io/badge/Playwright-1.63-2EAD33)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6)
 
-A self-directed, business-led quality engineering project by **Yuhan Deng**, built with TypeScript, Playwright and GitHub Actions against the public [SauceDemo](https://www.saucedemo.com/) e-commerce test application.
+A production-style QA automation portfolio demonstrating maintainable end-to-end testing with Playwright and TypeScript, automated CI execution through GitHub Actions, cross-browser coverage, reusable architecture and failure diagnostics.
 
-## Business challenge
+Built independently by **Yuhan Deng** against the public [SauceDemo](https://www.saucedemo.com/) e-commerce test application.
+
+> **Project integrity:** This is a self-directed personal project, not commercial Playwright work. Trail & Tide Outfitters is a fictional case study used to demonstrate requirements analysis and risk-based test design.
+
+## Tech stack
+
+- TypeScript 6 in strict mode
+- Playwright Test
+- Node.js 24
+- GitHub Actions
+- ESLint and Prettier
+- Git and GitHub
+
+## Portfolio business scenario
 
 **Trail & Tide Outfitters** is a fictional outdoor retailer moving from monthly storefront releases to several releases each week. Login, cart or checkout defects can prevent customers from purchasing, while repeated manual regression across browsers slows delivery and produces inconsistent evidence.
 
 I designed and implemented a practical solution: an automated release gate protecting the customer journey from access through purchase confirmation.
-
-> **Project integrity:** Trail & Tide is a fictional case study and SauceDemo is the public sandbox. This is an independently executed personal project, not commercial client work.
 
 ## Solution and measurable outcomes
 
@@ -24,7 +37,7 @@ I designed and implemented a practical solution: an automated release gate prote
 | Connect testing to business risk  | BR and QA identifiers with priority                      | Requirements traceability matrix       |
 | Support team delivery             | Pull-request and defect templates                        | Consistent evidence and risk decisions |
 
-The complete local validation baseline is **36/36 passing browser tests**. The illustrative business model estimates that automating a 45-minute manual pack across three browsers, three times per week, could return approximately six hours each week for exploratory and higher-value testing. The assumptions are documented rather than presented as measured client savings.
+The complete local validation baseline is **36/36 passing browser tests**. Any time or capacity assumptions remain in the business case, clearly labelled as illustrative rather than measured client impact.
 
 Read the full [business case and delivery plan](docs/business-case.md).
 
@@ -62,8 +75,8 @@ tests/        Business-readable scenarios and assertions
 fixtures/     Isolated page-object setup and authenticated state
 pages/        Reusable UI interactions and page-level assertions
 test-data/    Typed users, customers and products
-scripts/      CI release-summary generation
-docs/         Business case, strategy, traceability and interview guide
+scripts/      Documentation checks and CI release-summary generation
+docs/         Business case, strategy, traceability and interview evidence
 .github/      CI workflow, defect form and pull-request controls
 ```
 
@@ -77,7 +90,7 @@ docs/         Business case, strategy, traceability and interview guide
 | Purchase          | Completed checkout                             | Required customer information               |
 | Session control   | Logout                                         | —                                           |
 
-Every automated scenario maps to a business requirement in the [requirements traceability matrix](docs/requirements-traceability.md) and to a detailed [test case](docs/test-cases.md).
+Every automated scenario maps to a business requirement in the [requirements-to-test traceability matrix](docs/test-cases.md).
 
 ## Quick start
 
@@ -102,12 +115,13 @@ Useful commands:
 | `npm test`                    | Run all tests in all configured browsers                    |
 | `npm run test:smoke`          | Run the revenue-critical release pack                       |
 | `npm run test:regression`     | Run broader positive and negative coverage                  |
+| `npm run test:e2e`            | Run the multi-step purchase journey                         |
 | `npm run test:headed`         | Watch tests in desktop Chromium                             |
 | `npm run test:ui`             | Explore tests in Playwright UI mode                         |
 | `npm run test:debug`          | Step through tests with the Inspector                       |
 | `npm run check`               | Type-check, lint and verify formatting                      |
 | `npm run summary -- chromium` | Generate a release-readiness summary from the latest result |
-| `npm run report`              | Serve the most recent HTML report                           |
+| `npm run test:report`         | Serve the most recent HTML report                           |
 
 The target environment can be changed without editing source code:
 
@@ -129,18 +143,24 @@ A run is **READY** only when at least one test executed, with zero unexpected fa
 ## Delivery documentation
 
 - [Business case, stakeholders, value model and rollout](docs/business-case.md)
-- [Business requirements traceability](docs/requirements-traceability.md)
 - [Risk-based test strategy](docs/test-strategy.md)
-- [Detailed test cases](docs/test-cases.md)
-- [Defect communication template](docs/defect-template.md)
-- [Role-focused interview guide](docs/interview-guide.md)
+- [Requirements-to-test traceability](docs/test-cases.md)
+- [Interview preparation notes](docs/interview-notes.md)
+- [CV and profile evidence](docs/cv-evidence.md)
 - [Contribution and review workflow](CONTRIBUTING.md)
 
-GitHub also provides a structured defect form and pull-request template so impact, coverage and release risk are discussed consistently.
+GitHub also provides a [structured defect form](.github/ISSUE_TEMPLATE/defect.yml) and [pull-request template](.github/pull_request_template.md) so impact, coverage and release risk are discussed consistently.
 
 ## Intentional limitations and roadmap
 
-This portfolio focuses on browser-level validation against a third-party sandbox. A production implementation would add faster API/component coverage, controlled test accounts and data cleanup, environment health checks, accessibility validation and selective performance/security testing based on risk. Public demo credentials are used here; real credentials belong in encrypted CI secrets and must never be committed.
+This portfolio focuses on browser-level validation against a third-party sandbox. Public demo credentials are used here; real credentials belong in encrypted CI secrets and must never be committed.
+
+Realistic next improvements are:
+
+1. Add API tests for faster service-layer feedback and more precise failure isolation.
+2. Add accessibility checks for the critical login-to-checkout journey.
+3. Replace shared demo data with controlled test accounts and cleanup in an owned environment.
+4. Publish test outcomes to a real test-management integration only when a team has selected the tool and workflow.
 
 ## CV-ready description
 

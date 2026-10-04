@@ -51,7 +51,7 @@ The solution combines executable tests with delivery controls:
 | BR-04 | Checkout validates customer data and confirms a valid purchase                              | P0/P1    | Checkout defects directly block revenue               |
 | BR-05 | Customers can end their authenticated session                                               | P2       | Session-control defects create privacy and trust risk |
 
-Detailed mapping is maintained in the [requirements traceability matrix](requirements-traceability.md).
+Detailed mapping is maintained in the [requirements-to-test traceability matrix](test-cases.md).
 
 ## Success measures
 

@@ -15,3 +15,8 @@ export const users = {
     password: 'secret_sauce',
   },
 } as const satisfies Record<UserRole, Credentials>;
+
+export const invalidCredentials: Credentials = {
+  username: 'invalid_user',
+  password: 'incorrect_password',
+};

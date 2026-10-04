@@ -14,9 +14,34 @@ This suite is the executable quality gate proposed for the fictional Trail & Tid
 
 Tests marked `@smoke` cover P0 behaviour and are designed for rapid deployment feedback. Tests marked `@regression` provide broader validation before release.
 
+### In scope
+
+- Authentication success, validation and locked-account behaviour.
+- Product ordering and essential product information.
+- Cart contents, persistence and removal.
+- Checkout validation and successful order completion.
+- Logout and return to the login page.
+
+### Out of scope
+
+- Payment-provider processing; SauceDemo does not expose a real payment integration.
+- API contracts, database state and service-level error handling.
+- Accessibility, performance, security and visual-regression assessment.
+- Mobile breakpoints and native applications.
+- Real customer data, production credentials and production monitoring.
+
+These areas are excluded deliberately because the public application does not provide the ownership, interfaces or requirements needed to test them credibly.
+
 ## Test levels
 
 This repository focuses on browser-level end-to-end tests. In a production system, the automation pyramid should also contain many faster unit and API/component tests. Browser tests should be reserved for integration points and critical user journeys.
+
+| Test type      | Purpose                                                      | Execution                 |
+| -------------- | ------------------------------------------------------------ | ------------------------- |
+| Smoke          | Fast evidence that access, cart and purchase completion work | `npm run test:smoke`      |
+| Regression     | Negative, boundary, state and supporting behaviour           | `npm run test:regression` |
+| End-to-end     | One multi-step login-to-order-confirmation journey           | `npm run test:e2e`        |
+| Static quality | Type, lint, formatting and documentation-link checks         | `npm run check`           |
 
 ## Browser coverage
 
@@ -51,6 +76,21 @@ Exit criteria:
 - All P0 smoke tests pass in all three browsers.
 - No unexplained regression failures remain.
 - Failure artifacts have been reviewed before any retry-related pass is accepted.
+
+## CI strategy
+
+Every push and pull request to `main` first runs the static quality gate. The browser matrix starts only after that gate succeeds, then executes the complete suite independently in Chromium, Firefox and WebKit. Each job creates a release-readiness summary and retains its HTML report for 14 days. Parallel browser jobs keep the workflow simple while containing execution time.
+
+The small suite intentionally runs in full on every change. If execution time grew materially, the next step would be smoke-on-pull-request plus scheduled or post-merge regression—not adding complexity before it is needed.
+
+## Defect and failure handling
+
+1. Identify the failed QA and BR identifiers in the report.
+2. Inspect the Playwright call log, trace, screenshot and video before rerunning.
+3. Reproduce against the same browser and commit locally where possible.
+4. Classify product defect, test defect, environment failure or known external dependency.
+5. Record customer impact, severity, exact reproduction steps and evidence using the GitHub defect form.
+6. Do not accept a retry-related pass until the original failure is understood; flaky tests remain release-gate failures.
 
 ## Risks and limitations
 

@@ -2,13 +2,13 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import type { CheckoutCustomer } from '../test-data/customers.js';
 
 export class CheckoutPage {
-  readonly firstNameInput: Locator;
-  readonly lastNameInput: Locator;
-  readonly postalCodeInput: Locator;
-  readonly continueButton: Locator;
-  readonly finishButton: Locator;
-  readonly errorMessage: Locator;
-  readonly completeHeader: Locator;
+  private readonly firstNameInput: Locator;
+  private readonly lastNameInput: Locator;
+  private readonly postalCodeInput: Locator;
+  private readonly continueButton: Locator;
+  private readonly finishButton: Locator;
+  private readonly errorMessage: Locator;
+  private readonly completeHeader: Locator;
 
   constructor(private readonly page: Page) {
     this.firstNameInput = page.getByTestId('firstName');

@@ -2,10 +2,10 @@ import { expect, type Locator, type Page } from '@playwright/test';
 import type { Credentials } from '../test-data/users.js';
 
 export class LoginPage {
-  readonly usernameInput: Locator;
-  readonly passwordInput: Locator;
-  readonly loginButton: Locator;
-  readonly errorMessage: Locator;
+  private readonly usernameInput: Locator;
+  private readonly passwordInput: Locator;
+  private readonly loginButton: Locator;
+  private readonly errorMessage: Locator;
 
   constructor(private readonly page: Page) {
     this.usernameInput = page.getByTestId('username');
@@ -24,13 +24,17 @@ export class LoginPage {
     await this.loginButton.click();
   }
 
+  async enterUsername(username: string): Promise<void> {
+    await this.usernameInput.fill(username);
+  }
+
   async submit(): Promise<void> {
     await this.loginButton.click();
   }
 
   async expectLoaded(): Promise<void> {
     await expect(this.loginButton).toBeVisible();
-    await expect(this.page).toHaveURL(/\/$/);
+    await expect(this.page).toHaveURL('/');
   }
 
   async expectError(message: string): Promise<void> {

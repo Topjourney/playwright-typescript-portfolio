@@ -1,9 +1,9 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
 export class CartPage {
-  readonly title: Locator;
-  readonly checkoutButton: Locator;
-  readonly continueShoppingButton: Locator;
+  private readonly title: Locator;
+  private readonly checkoutButton: Locator;
+  private readonly continueShoppingButton: Locator;
 
   constructor(private readonly page: Page) {
     this.title = page.getByTestId('title');
@@ -12,7 +12,7 @@ export class CartPage {
   }
 
   private item(productName: string): Locator {
-    return this.page.locator('[data-test="inventory-item"]').filter({ hasText: productName });
+    return this.page.getByTestId('inventory-item').filter({ hasText: productName });
   }
 
   async expectLoaded(): Promise<void> {
